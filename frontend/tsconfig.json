@@ -1,0 +1,43 @@
+{
+  "compilerOptions": {
+    // Target the latest version of ECMAScript
+    "target": "es2022",
+    "lib": ["dom", "dom.iterable", "esnext"],
+
+    // Enable all strict type checking options
+    "strict": true,
+    "noEmit": true,
+
+    // Module settings
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "preserve",
+
+    // Path aliases for cleaner imports
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"]
+    },
+
+    // Enable incremental compilation
+    "incremental": true,
+
+    // Additional checks for better code quality
+    "allowJs": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "forceConsistentCasingInFileNames": true
+  },
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}

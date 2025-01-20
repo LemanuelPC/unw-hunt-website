@@ -1,0 +1,43 @@
+{
+  "header": {
+    "title": "UNW - Guild Hunt Progress Tracker",
+    "subtitle": "Lvl 2 = 2 pts | Lvl 3 = 7 pts | Lvl 4 = 16 pts | Lvl 5 = 16 pts"
+  },
+  "search": {
+    "memberId": "Member ID",
+    "name": "Name",
+    "placeholder": "Search..."
+  },
+  "table": {
+    "memberId": "Member ID",
+    "name": "Name",
+    "monday": "Monday",
+    "tuesday": "Tuesday",
+    "wednesday": "Wednesday",
+    "thursday": "Thursday",
+    "friday": "Friday",
+    "saturday": "Saturday",
+    "sunday": "Sunday",
+    "totalPoints": "Total Points",
+    "goalPoints": "Goal Points",
+    "lastWeekDebt": "Last Week Debt",
+    "pointsToGoal": "Points to Goal"
+  },
+  "serverTime": {
+    "current": "Current server's date and time",
+    "nextUpdate": "Next hunt update",
+    "delayed": "Still incoming today. Probably delayed",
+    "someDelays": "(some delays might occur)"
+  },
+  "datePicker": {
+    "currentWeek": "Current Week"
+  },
+  "languages": {
+    "en": "English",
+    "pt": "Portuguese",
+    "es": "Spanish"
+  },
+  "errors": {
+    "fetchFailed": "Failed to load hunt data. Please try again later."
+  }
+}

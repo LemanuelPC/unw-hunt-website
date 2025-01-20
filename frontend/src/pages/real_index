@@ -1,0 +1,83 @@
+import { GetStaticProps } from 'next';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import { useTranslation } from 'next-i18next';
+import { useState } from 'react';
+import { format } from 'date-fns';
+import Header from '@/components/Layout/Header';
+import WeeklyTable from '@/components/HuntTracker/WeeklyTable';
+import { useHuntData } from '@/hooks/useHuntData';
+import { DatePicker } from '@/components/HuntTracker/DatePicker';
+
+export default function Home() {
+  const { t } = useTranslation('common');
+  const [selectedWeek, setSelectedWeek] = useState<string | undefined>();
+
+  // Fetch hunt data for the selected week (or current week if none selected)
+  const { data, isLoading, isError } = useHuntData({ week: selectedWeek });
+
+  // Get the current day of the week (0 = Monday, 6 = Sunday)
+  const currentDay = data?.serverTiming ? new Date(data.serverTiming.currentDateTime).getDay() : 0;
+  const adjustedCurrentDay = currentDay === 0 ? 6 : currentDay - 1;
+
+  // Handler for week selection
+  const handleWeekChange = (date: Date | null) => {
+    if (date) {
+      setSelectedWeek(format(date, 'yyyy-MM-dd'));
+    } else {
+      setSelectedWeek(undefined);
+    }
+  };
+
+  if (isError) {
+    return (
+      <div className="min-h-screen bg-gray-50">
+        {data && <Header serverTiming={data.serverTiming} />}
+        <main className="container mx-auto px-4 py-8">
+          <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded">
+            {t('errors.fetchFailed')}
+          </div>
+        </main>
+      </div>
+    );
+  }
+
+  return (
+    <div className="min-h-screen bg-gray-50">
+      {isLoading ? (
+        <div className="bg-blue-600 h-[184px]" /> // Placeholder for header while loading
+      ) : (
+        data && <Header serverTiming={data.serverTiming} />
+      )}
+
+      <main className="container mx-auto px-4 py-8">
+        {/* Week Selection */}
+        <div className="mb-6">
+          <DatePicker
+            selectedDate={selectedWeek ? new Date(selectedWeek) : new Date()}
+            onChange={handleWeekChange}
+            isLoading={isLoading}
+          />
+        </div>
+
+        {isLoading ? (
+          <div className="flex justify-center items-center h-64">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500" />
+          </div>
+        ) : data ? (
+          <WeeklyTable
+            data={data.players}
+            currentDay={adjustedCurrentDay}
+          />
+        ) : null}
+      </main>
+    </div>
+  );
+}
+
+export const getStaticProps: GetStaticProps = async ({ locale = 'en' }) => {
+  return {
+    props: {
+      ...(await serverSideTranslations(locale, ['common'])),
+    },
+  };
+};

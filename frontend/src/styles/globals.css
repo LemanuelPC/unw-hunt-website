@@ -1,0 +1,27 @@
+/* Import Tailwind's base styles */
+@tailwind base;
+/* Import Tailwind's component classes */
+@tailwind components;
+/* Import Tailwind's utility classes */
+@tailwind utilities;
+
+/* Custom base styles */
+@layer base {
+  html {
+    @apply antialiased;
+  }
+
+  body {
+    @apply bg-gray-50 text-gray-900;
+  }
+}
+
+/* Custom component styles */
+@layer components {
+  /* Add any custom component styles here */
+}
+
+/* Custom utility styles */
+@layer utilities {
+  /* Add any custom utility classes here */
+}
